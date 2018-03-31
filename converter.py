@@ -43,12 +43,12 @@ class converter:
       line = re.sub(r'fprintf\((\s*)stdout(\s*),\s*', 'printf(', line)
       prefix = 'std::cout'
     elif 'stderr' in line:
-      line = re.sub(r'fprintf\((\s*)stderr(\s*),', 'printf(', line)
+      line = re.sub(r'fprintf\((\s*)stderr(\s*),\s*', 'printf(', line)
       prefix = 'std::cerr'
     else:
       prefix = re.search(r'fprintf\((.*?),', line).group(1)
       line = re.sub(r'fprintf\(' + prefix + ',', 'printf(', line)
-    converter._process_printf(line, f, prefix)
+    return converter._process_printf(line, f, prefix)
 
   format_string = re.compile(r'(%\d*\.?\d*[hlLzjt]*[diufFeEgGxXoscpaAn])')
   @staticmethod
